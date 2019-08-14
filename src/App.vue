@@ -1,29 +1,64 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-navigation-drawer app v-model="showDrawer">
+      <v-list nav dense>
+      <v-list-item-group active-class="deep-purple--text text--accent-4">
+        <v-list-item to="/">
+          <v-list-item-title>
+            Home
+          </v-list-item-title>
+        </v-list-item>
+
+        <v-list-item to="/about">
+          <v-list-item-title>Sobre</v-list-item-title>
+        </v-list-item>
+
+      </v-list-item-group>
+    </v-list>
+    </v-navigation-drawer>
+    <v-app-bar color="primary" dark app flat v-show="showAppBar">
+      <v-app-bar-nav-icon @click.stop="setVisibilityDrawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Playground</v-toolbar-title>
+    </v-app-bar>
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+    <v-footer v-show="showAppBar">
+      Downsoft @2019
+    </v-footer>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+export default {
+  computed: {
+    showDrawer: {
+      get() {
+        return this.$store.state.navigation.showDrawer;
+      },
+      set(valor) {
+        this.$store.commit("setDrawer", valor);
+      }
+    },
+    showAppBar: {
+      get(){
+        return this.$store.state.navigation.showTopBar;
+      },
+      set(valor){
+        this.$store.commit("setShowTopbar", valor);
+      }
+    }
+  },
+  methods: {
+    setVisibilityDrawer() {
+      this.$store.commit("setDrawer", !this.$store.state.navigation.showDrawer);
     }
   }
-}
+};
+</script>
+
+<style lang="scss">
+
 </style>
