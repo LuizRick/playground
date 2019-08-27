@@ -45,10 +45,11 @@ export default {
     searchManga() {
       this.$multiservice
         .post(`/api/mangaslivre`, {
-          Url: "https://mangalivre.com/lib/search/series.json",
+          url: "https://mangalivre.com/lib/search/series.json",
           BodyRequest: {
             search: this.mangaName
-          }
+          },
+          RequestType:1
         })
         .then(Response => {
           this.mangas = Response.data.series;

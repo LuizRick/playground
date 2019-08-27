@@ -1,7 +1,11 @@
 <template>
   <v-card class="mx-auto" max-width="374">
-    <v-img class="purple--text lighten-3" height="200px" :src="manga.cover">
-      <v-card-title class="align-end fill-height" elevation="10">{{manga.label}}</v-card-title>
+    <v-img class="white--text lighten-3" height="200px" :src="manga.cover" position="top center">
+      <v-card-title class="align-end fill-height">
+        <div class="transparent-bg">
+          {{manga.label}}
+        </div>
+      </v-card-title>
     </v-img>
     <v-card-text>
       <p>
@@ -35,7 +39,7 @@ export default {
           let chapters = [];
           do{
               let response = await this.$multiservice.post('/api/mangaslivre',{
-                Url:`https://mangalivre.com/series/chapters_list.json?page=${pageCount}&id_serie=${this.manga.id_serie}`,
+                url:`https://mangalivre.com/series/chapters_list.json?page=${pageCount}&id_serie=${this.manga.id_serie}`,
                 RequestType: 1,
                 BodyRequest: {}
               });
@@ -47,11 +51,17 @@ export default {
               newRequest = response.data.chapters != false;
           }while(newRequest);
           this.$store.commit('setMangaChapters', chapters);
+          this.$store.commit('setMangaSelected', this.manga);
           this.$router.push({name:'manga_chapters'});
       }
   }
 };
 </script>
 
-<style>
+<style scoped>
+  .transparent-bg{
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 12px 5px;
+    text-overflow: ellipsis;
+  }
 </style>

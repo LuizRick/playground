@@ -3,7 +3,12 @@
     <v-container fluid>
       <v-layout flex justify-center wrap>
         <v-flex md12 align-self-center>
-          <h1>Capitulo {{chapterSelected.chapter.number}}</h1>
+          <h1>
+            <v-btn outlined @click="goBack">
+              <v-icon>mdi-arrow-left-circle</v-icon>
+            </v-btn>
+            Capitulo {{chapterSelected.chapter.number}}
+          </h1>
         </v-flex>
         <v-flex xs12 md12>
           <div class="slide-container">
@@ -64,13 +69,13 @@ export default {
     prevImage() {
       if (this.selectedIndex > 0) {
         this.selectedIndex -= 1;
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
       }
     },
     nextImage() {
       if (this.selectedIndex < this.chapterSelected.images.images.length) {
         this.selectedIndex += 1;
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
       }
     },
     slideFullScreen() {
@@ -81,6 +86,9 @@ export default {
         document.exitFullscreen();
         this.isFullScreen = false;
       }
+    },
+    goBack(){
+      this.$router.back();
     }
   },
   mounted() {
@@ -92,16 +100,15 @@ export default {
       if (e.keyCode == 37) {
         this.prevImage();
       }
-
     });
 
-    window.addEventListener('fullscreenchange', (e) => {
-      if(!document.fullscreenElement){
+    window.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
         this.$store.commit("setShowTopbar", true);
-      }else{
+      } else {
         this.$store.commit("setShowTopbar", false);
       }
-    })
+    });
   }
 };
 </script>
@@ -124,35 +131,41 @@ export default {
   right: 0;
 }
 
-
-.fade-enter, .fade-leave-to{
-	opacity: 0;
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
-.fade-enter-active, .fade-leave-active{
-	transition: opacity 2s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s;
 }
-
 
 @keyframes slide-in {
-    100% { transform: translateX(0%); }
+  100% {
+    transform: translateX(0%);
+  }
 }
 
 @keyframes slide-out {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
-.slide-enter-active{
-	 animation: slide-in 0.3s forwards;
+.slide-enter-active {
+  animation: slide-in 0.3s forwards;
 }
 
-.slide-leave-active{
-	animation: slide-out 0.3s forwards;
+.slide-leave-active {
+  animation: slide-out 0.3s forwards;
 }
 
 @media all and (display-mode: fullscreen) {
-  body{
+  body {
     background-color: darkslategray;
   }
 }

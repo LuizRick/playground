@@ -1,7 +1,8 @@
 export default {
     state:{
         chapters:[],
-        chapter:{}
+        chapter:{},
+        manga:{}
     },
     getters:{
 
@@ -12,6 +13,9 @@ export default {
         },
         setReaderChapter(state, payload){
             state.chapter = payload;
+        },
+        setMangaSelected(state, payload){
+            state.manga = payload;
         }
     },
     actions:{

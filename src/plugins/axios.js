@@ -9,7 +9,7 @@ Vue.use({
         });
 
         Vue.prototype.$multiservice = axios.create({
-            baseURL:'https://localhost:5001/'
+            baseURL:'http://localhost:5001/',
         });
     }
 })
