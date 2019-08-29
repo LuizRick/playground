@@ -79,7 +79,7 @@ export default {
             let token = getTokenfromColletion(
               doc.getElementsByTagName("script")
             );
-            let response = await this.$multiservice.post("/api/mangaslivre", {
+            let response = await this.$multiservice.post("/mangaslivre", {
               url: `https://mangalivre.com/leitor/pages/${chapter.releases[releases[0]].id_release}.json?key=${token}`
             });
             this.$store.commit("setReaderChapter", {
