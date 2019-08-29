@@ -44,7 +44,7 @@ export default {
   methods: {
     searchManga() {
       this.$multiservice
-        .post(`/api/mangaslivre`, {
+        .post(`/mangaslivre`, {
           url: "https://mangalivre.com/lib/search/series.json",
           BodyRequest: {
             search: this.mangaName

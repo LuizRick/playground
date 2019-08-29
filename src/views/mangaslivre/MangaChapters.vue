@@ -65,7 +65,7 @@ export default {
     readChapter(chapter) {
       let releases = Object.keys(chapter.releases);
       this.$multiservice
-        .post("/api/mangaslivre", {
+        .post("/mangaslivre", {
           url: `https://mangalivre.com/${chapter.releases[releases[0]].link}`,
           RequestType: 2,
           BodyRequest: {},

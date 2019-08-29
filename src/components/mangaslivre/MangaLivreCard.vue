@@ -38,7 +38,7 @@ export default {
           let newRequest = true;
           let chapters = [];
           do{
-              let response = await this.$multiservice.post('/api/mangaslivre',{
+              let response = await this.$multiservice.post('/mangaslivre',{
                 url:`https://mangalivre.com/series/chapters_list.json?page=${pageCount}&id_serie=${this.manga.id_serie}`,
                 RequestType: 1,
                 BodyRequest: {}

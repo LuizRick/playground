@@ -53,7 +53,7 @@ export default {
   }),
   methods: {
     downloadVideo() {
-      const url = `http://localhost:5001/yt-download?yt_url=${this.ytUrl}&quality=${this.select.state}&name=${this.videoName}`;
+      const url = `http://localhost:5001/api/yt-download?yt_url=${this.ytUrl}&quality=${this.select.state}&name=${this.videoName}`;
        window.open(url);
     }
   }
