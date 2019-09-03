@@ -30,6 +30,16 @@ export default new Router({
       path: '/mangaslivre/chapter/read',
       name:'chapter_reader',
       component: () => import('./views/mangaslivre/ChapterReader.vue')
+    },
+    {
+      path:'/youtube/download',
+      name:'youtubedownloader',
+      component: () => import('./views/youtube/DownloaderYT.vue')
+    },
+    {
+      path:'/mangaslivre/search',
+      name:'mangaslivresearch',
+      component: () => import('./views/mangaslivre/SearchMangas.vue')
     }
   ]
 })

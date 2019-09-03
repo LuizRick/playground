@@ -5,14 +5,18 @@
       <v-list-item-group active-class="deep-purple--text text--accent-4">
         <v-list-item to="/">
           <v-list-item-title>
-            Home
+            Inicio
           </v-list-item-title>
         </v-list-item>
 
-        <v-list-item to="/about">
-          <v-list-item-title>Sobre</v-list-item-title>
+        <v-list-item to="/youtube/download">
+          <v-list-item-title>Baixar youtube</v-list-item-title>
         </v-list-item>
-
+        <v-list-item to="/mangaslivre/search">
+          <v-list-item-title>
+            Buscar mangas
+          </v-list-item-title>
+        </v-list-item>
       </v-list-item-group>
     </v-list>
     </v-navigation-drawer>

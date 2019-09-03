@@ -1,14 +1,23 @@
 <template>
-  <div id='apphome'>
-    <search-manga />
-    <youtube-downloader />
-  </div>
+  <v-layout wrap>
+    <v-flex md12>
+      <v-carousel>
+        <v-carousel-item v-for="(color, i) in colors" :key="color">
+          <v-sheet :color="color" height="100%" tile>
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="display-3">Slide {{ i + 1 }}</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
-import SearchManga from '@/components/mangaslivre/SearchManga'
-import YoutubeDownloader from '@/components/youtube/YoutubeDownloader'
 export default {
-  components: { SearchManga, YoutubeDownloader }
+  data: () => ({
+    colors: ["primary", "secondary", "yellow darken-2", "red", "orange"]
+  })
 };
 </script>
