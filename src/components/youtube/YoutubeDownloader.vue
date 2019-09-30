@@ -82,8 +82,6 @@ export default {
         .get(`yt-info?yt_url=${this.ytUrl}`)
         .then(resp => {
           this.videoInfo = resp.data;
-
-          console.log(resp);
           this.showVideoInfo = true;
         })
         .catch(err => alert(err));
