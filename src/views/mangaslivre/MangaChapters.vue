@@ -28,7 +28,7 @@
               <div>Data: {{chapter.date}}</div>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="deep-purple accent-4" text @click="readChapter(chapter)">Ler</v-btn>
+              <v-btn color="primary" text @click="readChapter(chapter)">Ler</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

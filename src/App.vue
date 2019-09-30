@@ -1,26 +1,31 @@
 <template>
   <v-app>
-    <v-navigation-drawer app v-model="showDrawer">
+    <v-navigation-drawer app v-model="showDrawer" dark>
       <v-list nav dense>
-      <v-list-item-group active-class="deep-purple--text text--accent-4">
+      <v-list-item-group>
         <v-list-item to="/">
           <v-list-item-title>
+            <v-icon color="blue">mdi-home</v-icon>
             Inicio
           </v-list-item-title>
         </v-list-item>
 
         <v-list-item to="/youtube/download">
-          <v-list-item-title>Baixar youtube</v-list-item-title>
+          <v-list-item-title>
+            <v-icon color="blue">mdi-download</v-icon>
+            Baixar youtube
+          </v-list-item-title>
         </v-list-item>
         <v-list-item to="/mangaslivre/search">
           <v-list-item-title>
+            <v-icon color="blue">mdi-card-search-outline</v-icon>
             Buscar mangas
           </v-list-item-title>
         </v-list-item>
       </v-list-item-group>
     </v-list>
     </v-navigation-drawer>
-    <v-app-bar color="primary" dark app flat v-show="showAppBar">
+    <v-app-bar color="dark" dark app flat v-show="showAppBar">
       <v-app-bar-nav-icon @click.stop="setVisibilityDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Playground</v-toolbar-title>
     </v-app-bar>
