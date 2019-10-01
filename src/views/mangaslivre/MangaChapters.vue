@@ -6,6 +6,12 @@
           <v-toolbar>
             <v-toolbar-title>Menu Capitulos</v-toolbar-title>
             <div class="flex-grow-1"></div>
+            <v-btn icon>
+              <v-icon>mdi-view-module</v-icon>
+            </v-btn>
+            <v-btn icon>
+              <v-icon>mdi-view-list</v-icon>
+            </v-btn>
             <v-btn icon @click="orderType = 'desc'" class="active">
               <v-icon>mdi-arrow-down</v-icon>
             </v-btn>
@@ -25,7 +31,7 @@
             </v-img>
             <v-card-title>Capitulo: {{chapter.number}}</v-card-title>
             <v-card-text>
-              <div>Data: {{chapter.date}}</div>
+              <div>Data publicação: {{chapter.date}}</div>
             </v-card-text>
             <v-card-actions>
               <v-btn color="primary" text @click="readChapter(chapter)">Ler</v-btn>
