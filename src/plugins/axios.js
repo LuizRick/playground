@@ -11,5 +11,9 @@ Vue.use({
         Vue.prototype.$multiservice = axios.create({
             baseURL:'http://localhost:5001/api/',
         });
+
+        Vue.prototype.$api = axios.create({
+            baseURL:''
+        });
     }
 })
