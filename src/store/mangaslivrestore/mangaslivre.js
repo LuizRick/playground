@@ -2,10 +2,11 @@ export default {
     state:{
         chapters:[],
         chapter:{},
-        manga:{}
+        manga:{},
+        lastChapterReaded:{}
     },
     getters:{
-
+        
     },
     mutations:{
         setMangaChapters(state, payload){
@@ -16,6 +17,9 @@ export default {
         },
         setMangaSelected(state, payload){
             state.manga = payload;
+        },
+        setLastChapterReaded(state, payload){
+            state.lastChapterReaded = payload;
         }
     },
     actions:{

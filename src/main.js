@@ -5,11 +5,15 @@ import store from './store'
 import './registerServiceWorker'
 import vuetify from './plugins/vuetify'
 import './plugins/axios'
+import './plugins/localStorage'
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
+  render: h => h(App),
+  created(){
+    this.$ls.addProperty('historyChapters', null , JSON.stringify([]));
+  }
 }).$mount('#app')

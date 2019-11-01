@@ -2,6 +2,7 @@ export default {
     state:{
         showDrawer:false,
         showTopBar:true,
+        loading:false,
     },
     getters:{
 
@@ -12,6 +13,9 @@ export default {
         },
         setShowTopbar(state,payload){
             state.showTopBar = payload;
+        },
+        setLoading(state, payload){
+            state.loading = payload;
         }
     },
     actions:{

@@ -131,6 +131,7 @@ export default {
     },
     readChapter(chapter) {
       let releases = Object.keys(chapter.releases);
+      this.$store.commit('setLoading', true);
       this.$multiservice
         .post("/mangaslivre", {
           url: `https://mangalivre.com/${chapter.releases[releases[0]].link}`,
@@ -153,8 +154,10 @@ export default {
               chapter,
               images: response.data
             });
+            this.$store.commit('setLoading', false);
             this.$router.push({ name: "chapter_reader" });
           } catch (ex) {
+            this.$store.commit('setLoading', false);
             alert(
               "ooops erro na aplicação na hora de fazer hack no manga pages"
             );
