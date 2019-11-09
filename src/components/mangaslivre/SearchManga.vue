@@ -51,6 +51,14 @@
             </v-col>
           </v-row>
         </v-flex>
+        <v-flex md12>
+          <h1>Favoritos</h1>
+          <v-row>
+            <v-col md="4" v-for="manga in mangasFavoritos" :key="manga.id_serie">
+              <manga-livre-card :manga="manga" />
+            </v-col>
+          </v-row>
+        </v-flex>
       </v-layout>
     </v-container>
   </v-container>
@@ -67,7 +75,8 @@ export default {
       v => v.length >= 3 || "O titulo precisa ter no minio 3 caractrs... "
     ],
     mangas: [],
-    mangasHistory: []
+    mangasHistory: [],
+    mangasFavoritos: []
   }),
   methods: {
     searchManga() {
@@ -83,7 +92,7 @@ export default {
         .then(Response => {
           this.mangas = Response.data.series;
         });
-        this.$store.commit("setLoading", false);
+      this.$store.commit("setLoading", false);
     },
     async viewChapter(manga) {
       let pageCount = 1;
@@ -125,8 +134,14 @@ export default {
           }`
       })
       .then(({ data }) => {
-        this.mangasHistory = data.data.findAllMangas.sort( (a, b) => b.id - a.id);
+        this.mangasHistory = data.data.findAllMangas.sort(
+          (a, b) => b.id - a.id
+        );
       });
+
+    this.$multiservice.get("/getMangasFavoritos").then(({ data }) => {
+      this.mangasFavoritos = data.resultado;
+    });
     this.$store.commit("setLoading", false);
   }
 };

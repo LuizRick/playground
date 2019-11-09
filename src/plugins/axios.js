@@ -13,7 +13,7 @@ Vue.use({
         });
 
         Vue.prototype.$api = axios.create({
-            baseURL:'http://localhost:8888'
+            baseURL:'http://localhost:8887'
         });
     }
 })
