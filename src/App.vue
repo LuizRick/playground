@@ -25,13 +25,6 @@
     <v-app-bar color="dark" dark app flat v-show="showAppBar">
       <v-app-bar-nav-icon @click.stop="setVisibilityDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Playground</v-toolbar-title>
-      <v-progress-linear
-        :active="loading"
-        :indeterminate="loading"
-        absolute
-        bottom
-        color="deep-purple accent-4"
-      ></v-progress-linear>
     </v-app-bar>
     <v-content>
       <v-container fluid>
@@ -41,6 +34,9 @@
     <v-footer v-show="showAppBar">
       <span title=" Downsoft @2019">Downsoft @2019</span>
     </v-footer>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-app>
 </template>
 
