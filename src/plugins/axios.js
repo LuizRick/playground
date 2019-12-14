@@ -9,11 +9,11 @@ Vue.use({
         });
 
         Vue.prototype.$multiservice = axios.create({
-            baseURL:'http://localhost:5001/api/',
+            baseURL:'http://192.168.0.112:5001/api/',
         });
 
         Vue.prototype.$api = axios.create({
-            baseURL:'http://localhost:8887'
+            baseURL:'http://192.168.0.112:8887'
         });
     }
 })

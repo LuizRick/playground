@@ -9,9 +9,7 @@
       <p>
         <b>Categorias</b>
       </p>
-      <div>
-        <span v-for="categoria in manga.categories" :key="categoria.id_category">{{categoria.name}}/</span>
-      </div>
+      <div class="text-elipsed">{{mangaCategories}}</div>
       <v-layout align-center>
         <v-rating :value="manga.score / 2" color="amber" size="14" readonly></v-rating>
         <div class="grey--text ml-4">
@@ -33,6 +31,15 @@ const SET_LOADING = "setLoading";
 export default {
   props: {
     manga: Object
+  },
+  computed: {
+    mangaCategories() {
+      let categories = "";
+      this.manga.categories.forEach(v => {
+        categories +=  v.name + "/";
+      });
+      return categories;
+    }
   },
   methods: {
     async verCapitulos() {
@@ -82,8 +89,8 @@ export default {
         manga: this.manga
       });
 
-      if(response.data.resultado > 0){
-        alert("Manga salvo a lista de favoritos")
+      if (response.data.resultado > 0) {
+        alert("Manga salvo a lista de favoritos");
       }
 
       this.$store.commit(SET_LOADING, false);
@@ -97,5 +104,11 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 12px 5px;
   text-overflow: ellipsis;
+}
+
+.text-elipsed {
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
 }
 </style>

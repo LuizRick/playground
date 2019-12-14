@@ -36,6 +36,9 @@
     </v-footer>
     <v-overlay :value="loading">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
+      <div class="loading-msg">
+        <p v-if="loadingMsg">{{loadingMsg}}</p>
+      </div>
     </v-overlay>
   </v-app>
 </template>
@@ -61,6 +64,9 @@ export default {
     },
     loading() {
       return this.$store.state.navigation.loading;
+    },
+    loadingMsg(){
+      return this.$store.state.navigation.loadingMsg;
     }
   },
   methods: {
@@ -72,4 +78,8 @@ export default {
 </script>
 
 <style lang="scss">
+.loading-msg{
+  padding:12px;
+  text-align: center;
+}
 </style>

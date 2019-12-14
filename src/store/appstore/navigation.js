@@ -3,6 +3,7 @@ export default {
         showDrawer:false,
         showTopBar:true,
         loading:false,
+        loadingMsg:'',
     },
     getters:{
 
@@ -16,6 +17,9 @@ export default {
         },
         setLoading(state, payload){
             state.loading = payload;
+        },
+        setloadingMsg(state, payload){
+            state.loadingMsg = payload;
         }
     },
     actions:{

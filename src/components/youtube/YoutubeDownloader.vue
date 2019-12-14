@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import FileDownload from "@/utils/FileDownloader";
+const SET_LOADING = "setLoading";
 export default {
   data: () => ({
     valid: false,
@@ -63,26 +65,75 @@ export default {
     select: { state: "highest", descricao: "highest audio and video" },
     videoInfo: {},
     showVideoInfo: false,
+    downloadProgress: 0,
     qualityItems: [
-      { state: "highest", descricao: "highest audio and video" },
-      { state: "lowest", descricao: "lowest audio and video" },
-      { state: "highestaudio", descricao: "highestaudio (just audio)" },
-      { state: "lowestaudio", descricao: "lowestaudio (just audio)" },
-      { state: "highestvideo", descricao: "highestvideo (just video)" },
-      { state: "lowestvideo", descricao: "lowestvideo (just video)" }
+      {
+        state: "highest",
+        descricao: "highest audio and video",
+        mime: "video/mp4"
+      },
+      {
+        state: "lowest",
+        descricao: "lowest audio and video",
+        mime: "video/mp4"
+      },
+      {
+        state: "highestaudio",
+        descricao: "highestaudio (just audio)",
+        mime: "audio/mpeg"
+      },
+      {
+        state: "lowestaudio",
+        descricao: "lowestaudio (just audio)",
+        mime: "audio/mpeg"
+      },
+      {
+        state: "highestvideo",
+        descricao: "highestvideo (just video)",
+        mime: "video/mp4"
+      },
+      {
+        state: "lowestvideo",
+        descricao: "lowestvideo (just video)",
+        mime: "video/mp4"
+      }
     ]
   }),
   methods: {
     downloadVideo() {
       const url = `http://localhost:5001/api/yt-download?yt_url=${this.ytUrl}&quality=${this.select.state}&name=${this.videoName}`;
-      window.open(url);
+      this.$store.commit(SET_LOADING, true);
+      this.downloadProgress = 0;
+      this.$multiservice
+        .get(url, {
+          responseType: "arraybuffer",
+          onDownloadProgress: (event) => {
+            this.$store.commit('setloadingMsg', `Baixando conteudo: ${Math.round(event.loaded / 1024)}KB`);
+          }
+        })
+        .then(resp => {
+          FileDownload.downloadFile(
+            resp.data,
+            this.videoName,
+            this.select.mime
+          );
+          this.$store.commit(SET_LOADING, false);
+          this.$store.commit('setloadingMsg', null);
+        })
+        .catch(err =>  { alert(err); this.$store.commit(SET_LOADING, true);});
     },
     getYoutubeVideoInfo() {
       this.$multiservice
         .get(`yt-info?yt_url=${this.ytUrl}`)
         .then(resp => {
-          this.videoInfo = resp.data;
-          this.showVideoInfo = true;
+          if (resp.status == 200) {
+            this.videoInfo = resp.data;
+            this.showVideoInfo = true;
+          } else {
+            throw new Error(
+              "Nao foi possivel carregar as informacoes do video"
+            );
+          }
         })
         .catch(err => alert(err));
     }
