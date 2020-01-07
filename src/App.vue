@@ -19,6 +19,11 @@
               <v-icon color="blue">mdi-card-search-outline</v-icon>Buscar mangas
             </v-list-item-title>
           </v-list-item>
+          <v-list-item to="/mal/home">
+            <v-list-item-title>
+              <v-icon color="blue">mdi-home-outline</v-icon>MAL
+            </v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

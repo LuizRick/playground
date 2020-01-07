@@ -40,6 +40,11 @@ export default new Router({
       path:'/mangaslivre/search',
       name:'mangaslivresearch',
       component: () => import('./views/mangaslivre/SearchMangas.vue')
+    },
+    {
+      path:'/mal/home',
+      name:'myanimelist',
+      component: () => import('./views/mal/MyAnimelistHome.vue')
     }
   ]
 })

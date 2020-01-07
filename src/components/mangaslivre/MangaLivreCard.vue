@@ -49,7 +49,7 @@ export default {
       this.$store.commit(SET_LOADING, true);
       do {
         let response = await this.$multiservice.post("/mangaslivre", {
-          url: `https://mangalivre.com/series/chapters_list.json?page=${pageCount}&id_serie=${this.manga.id_serie}`,
+          url: `https://mangalivre.net/series/chapters_list.json?page=${pageCount}&id_serie=${this.manga.id_serie}`,
           RequestType: 1,
           BodyRequest: {}
         });
