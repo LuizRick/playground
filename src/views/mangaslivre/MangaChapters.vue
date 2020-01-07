@@ -33,7 +33,7 @@
           </v-toolbar>
         </v-flex>
         <template v-if="viewType == types.CARD">
-          <v-flex xs4 md4 v-for="(chapter, index) in chapters" :key="index">
+          <v-flex xs4 md4 sm12 v-for="(chapter, index) in chapters" :key="index">
             <v-card class="mx-auto" tile>
               <v-img height="300px" :src="manga.cover" position="top center">
                 <div class="indigo darken-4 text-center">
@@ -134,7 +134,7 @@ export default {
       this.$store.commit('setLoading', true);
       this.$multiservice
         .post("/mangaslivre", {
-          url: `https://mangalivre.com/${chapter.releases[releases[0]].link}`,
+          url: `https://mangalivre.net/${chapter.releases[releases[0]].link}`,
           RequestType: 2,
           BodyRequest: {},
           isAjax: false
@@ -148,7 +148,7 @@ export default {
               doc.getElementsByTagName("script")
             );
             let response = await this.$multiservice.post("/mangaslivre", {
-              url: `https://mangalivre.com/leitor/pages/${chapter.releases[releases[0]].id_release}.json?key=${token}`
+              url: `https://mangalivre.net/leitor/pages/${chapter.releases[releases[0]].id_release}.json?key=${token}`
             });
             this.$store.commit("setReaderChapter", {
               chapter,
