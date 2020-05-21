@@ -45,6 +45,11 @@ export default new Router({
       path:'/mal/home',
       name:'myanimelist',
       component: () => import('./views/mal/MyAnimelistHome.vue')
+    },
+    {
+      path: '/study/grade',
+      name: 'study_grade',
+      component: () => import('./views/study/GradeView.vue')
     }
   ]
 })

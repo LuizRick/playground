@@ -60,6 +60,7 @@ export default {
         pageCount += 1;
         newRequest = response.data.chapters != false;
       } while (newRequest);
+
       this.$api.post("/graphql", {
         query: `mutation createNewManga($mangaInput:MangaInput!) {
               newManga(mangaInput:$mangaInput){
@@ -77,7 +78,8 @@ export default {
             name: this.manga.name
           }
         }
-      });
+      }).catch(() => null);
+
       this.$store.commit(SET_LOADING, false);
       this.$store.commit("setMangaChapters", chapters);
       this.$store.commit("setMangaSelected", this.manga);

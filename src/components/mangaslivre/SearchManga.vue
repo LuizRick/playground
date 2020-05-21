@@ -116,14 +116,12 @@ export default {
       this.$store.commit("setMangaSelected", manga);
       this.$store.commit("setLoading", false);
       this.$router.push({ name: "manga_chapters" });
-    }
-  },
-  components: { MangaLivreCard },
-  created() {
-    this.$store.commit("setLoading", true);
-    this.$api
-      .post("/graphql", {
-        query: `query {
+    },
+    loadMangas() {
+      this.$store.commit("setLoading", true);
+      this.$api
+        .post("/graphql", {
+          query: `query {
             findAllMangas{
               id
               name
@@ -132,17 +130,22 @@ export default {
               createAt
             }
           }`
-      })
-      .then(({ data }) => {
-        this.mangasHistory = data.data.findAllMangas.sort(
-          (a, b) => b.id - a.id
-        );
-      });
+        })
+        .then(({ data }) => {
+          this.mangasHistory = data.data.findAllMangas.sort(
+            (a, b) => b.id - a.id
+          );
+        });
 
-    this.$multiservice.get("/getMangasFavoritos").then(({ data }) => {
-      this.mangasFavoritos = data.resultado;
-    });
-    this.$store.commit("setLoading", false);
+      this.$multiservice.get("/getMangasFavoritos").then(({ data }) => {
+        this.mangasFavoritos = data.resultado;
+      });
+      this.$store.commit("setLoading", false);
+    }
+  },
+  components: { MangaLivreCard },
+  created() {
+    this.loadMangas();
   }
 };
 </script>

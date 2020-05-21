@@ -24,6 +24,11 @@
               <v-icon color="blue">mdi-home-outline</v-icon>MAL
             </v-list-item-title>
           </v-list-item>
+           <v-list-item to="/study/grade">
+            <v-list-item-title>
+              <v-icon color="blue">mdi-home-outline</v-icon> Study
+            </v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

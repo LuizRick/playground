@@ -9,14 +9,77 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="4" class="my-2 px-1">
-        <v-date-picker
-          ref="picker"
-          locale="pt-BR"
-          v-model="date"
-          :picker-date.sync="pickerDate"
-          full-width
-        ></v-date-picker>
+      <v-col cols="12" sm="12" class="my-2 px-1">
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header v-slot="{ open }">
+              <v-row no-gutters>
+                <v-col cols="4">Intervalo de Lancamentos</v-col>
+                <v-col cols="8" class="text--secondary">
+                  <v-fade-transition leave-absolute>
+                    <span v-if="open">Quando o anime inicia e termina ?</span>
+                    <v-row v-else no-gutters style="width:100%">
+                      <v-col cols="6">Data inicial: {{anime.date || 'Nao setado'}}</v-col>
+                      <v-col cols="6">Data final: {{anime.endDate || 'Nao setado'}}</v-col>
+                    </v-row>
+                  </v-fade-transition>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row justify="space-around" no-gutters>
+                <v-col cols="3">
+                  <v-menu
+                    ref="startMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="anime.date"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{on}">
+                      <v-text-field
+                        label="Inicio"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-on="on"
+                        v-model="anime.date"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker locale="pt-BR" v-model="pickerDate" no-title scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="$refs.startMenu.isActive = false">Cancel</v-btn>
+                      <v-btn text color="primary" @click="$refs.startMenu.save(pickerDate)">Ok</v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col cols="3">
+                  <v-menu
+                    ref="endMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="anime.endDate"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{on}">
+                      <v-text-field
+                        label="termino"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-on="on"
+                        v-model="anime.endDate"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker locale="pt-BR" v-model="pickerDate" no-title scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="$refs.endMenu.isActive = false">Cancel</v-btn>
+                      <v-btn text color="primary" @click="$refs.endMenu.save(pickerDate)">Ok</v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-col>
     </v-row>
     <v-row>
@@ -57,6 +120,12 @@
               <v-expansion-panel-content>{{anime.synopsis}}</v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
+          <v-card-actions>
+            <v-btn :href="anime.url" target="_blank" text small>
+              See on MAL
+              <v-icon right>mdi-open-in-new</v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -70,7 +139,10 @@ export default {
     animesTemporada: [],
     season: getSeason(),
     anoAtual: new Date().getFullYear(),
-    date: null,
+    anime: {
+      date: null,
+      endDate: null
+    },
     pickerDate: null
   }),
   methods: {
@@ -84,10 +156,13 @@ export default {
   computed: {
     animesMal() {
       let animes = Array.from(this.animesTemporada);
-      if (this.date != null) {
+      if (this.anime.date != null && this.anime.endDate) {
         animes = animes.filter(
           anime =>
-            new Date(anime.airing_start) <= new Date(this.date + "T00:00:00")
+            new Date(anime.airing_start) >=
+              new Date(this.anime.date + "T00:00:00") &&
+            new Date(anime.airing_start) <=
+              new Date(this.anime.endDate + "T00:00:00")
         );
       }
       return animes;
