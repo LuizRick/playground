@@ -103,10 +103,15 @@ export default {
       try {
         this.$store.commit(SET_LOADING, true);
         this.subject.horarios.push(this.model);
-        let res = await this.$multiservice.post(
+        let response = await this.$multiservice.post(
           "/update-subject",
           this.subject
         );
+        if (response.data.status == 200) {
+          alert("salvo con sucesso");
+        } else {
+          alert("nao foi possivel salvar");
+        }
       } catch (_) {
         alert("nao foi possivel salvar");
       } finally {

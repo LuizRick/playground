@@ -2,15 +2,23 @@
   <v-card flat>
     <v-card-title>
       <span class="headline">Listagem</span>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      />
     </v-card-title>
     <v-card-text>
-      <v-data-table :headers="table.headers" :items="table.items">
+      <v-data-table :headers="table.headers" :items="table.items" :search="search">
         <template v-slot:item.actions="{ item }">
           <v-icon small class="mr-2" @click="addHour(item)">mdi-table-clock</v-icon>
         </template>
         <template v-slot:item.url="{item}">
           <v-btn icon :href="item.url" target="_blank">
-            <v-icon>mdi-launch</v-icon>
+            <v-icon small>mdi-launch</v-icon>
           </v-btn>
         </template>
       </v-data-table>
@@ -26,6 +34,7 @@ const SET_LOADING = "setLoading";
 export default {
   data() {
     return {
+      search: "",
       table: {
         headers: [
           { text: "Nome ", value: "name" },

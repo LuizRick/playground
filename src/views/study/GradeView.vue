@@ -29,6 +29,9 @@
             <template v-if="action == actions.LIST">
               <list-subject-table @hour="horario" />
             </template>
+            <template v-if="action == actions.GRADE">
+              <grade-table />
+            </template>
           </v-card-text>
         </v-card>
       </v-col>
@@ -40,18 +43,21 @@
 import SubjectForm from "@/components/study/SubjectForm.vue";
 import GradeHourForm from "@/components/study/GradeHourForm.vue";
 import ListSubjectTable from "@/components/study/ListSubjectTable.vue";
+import GradeTable from "@/components/study/GradeTable.vue";
 const actions = {
   LIST: "list",
   NEW: "new",
   DELETE: "delete",
-  HORARIO: "horario"
+  HORARIO: "horario",
+  GRADE: "grade"
 };
 
 export default {
   components: {
     SubjectForm,
     GradeHourForm,
-    ListSubjectTable
+    ListSubjectTable,
+    GradeTable
   },
   data() {
     return {
@@ -70,6 +76,10 @@ export default {
         {
           title: "Listar",
           action: this.list
+        },
+        {
+          title: "Grade",
+          action: this.grade
         }
       ]
     };
@@ -84,6 +94,9 @@ export default {
     },
     list() {
       this.action = actions.LIST;
+    },
+    grade() {
+      this.action = actions.GRADE;
     }
   }
 };
