@@ -6,7 +6,7 @@
     <v-card-text>
       <v-data-table :headers="tableModel.headers" :items="courses" :disable-pagination="true">
         <template v-for="(v) in tableModel.headers" v-slot:[`item.${v.value}`]="{item}">
-          <template v-if="item[v.value]">{{item[v.value].slice(0,20)}}</template>
+          <template v-if="item[v.value]">{{item[v.value].name}}</template>
           <template v-else>-</template>
         </template>
       </v-data-table>
@@ -54,23 +54,25 @@ export default {
   },
   methods: {
     mountData(items) {
-      let retorno = [];
-      items.forEach(item => {
-        let row = {};
-        this.dias.forEach(dia => {
-          let t = item.horarios.find(v => v.dia == dia);
-          if (t) {
-            row[dia] = item.descricao;
-            row["hour"] = t.from + "-" + t.to;
+      let withDays = items.filter( item => item.horarios.some( hr => this.dias.indexOf(hr.dia) != -1));
+      let rows = [];
+
+      withDays.forEach( item => {
+        rows.push(
+          {
+            'hour': getHourByDay(item),
+            'segunda': getItemByDay(item, 'segunda'),
+            'terca': getItemByDay(item, 'terca'),
+            'quarta': getItemByDay(item, 'quarta'),
+            'quinta': getItemByDay(item, 'quinta'),
+            'sexta': getItemByDay(item, 'sexta'),
+            'sabado': getItemByDay(item, 'sabado'),
+            'domingo': getItemByDay(item, 'domingo'),
           }
-        });
-
-        if (Object.keys(row).length > 0) {
-          retorno.push(row);
-        }
+        );
       });
-
-      this.courses = retorno;
+      console.log(rows);
+      this.courses = rows;
     }
   },
   async created() {
@@ -89,6 +91,20 @@ export default {
     }
   }
 };
+
+
+function getItemByDay(item, day){
+  if(item.horarios.some( hr => hr.dia == day)){
+    return item;
+  }
+  return null;
+}
+
+function getHourByDay(item, day){
+  return {
+    name: item.horarios[0].from  + "-" + item.horarios[0].to
+  };
+}
 </script>
 
 <style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
       <v-col cols="12">
         <v-card>
@@ -68,10 +68,6 @@ export default {
         {
           title: "Novo",
           action: this.novo
-        },
-        {
-          title: "Horario",
-          action: this.horario
         },
         {
           title: "Listar",
